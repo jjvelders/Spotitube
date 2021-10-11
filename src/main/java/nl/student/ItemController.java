@@ -1,12 +1,11 @@
 package nl.student;
 
 import nl.student.services.ItemService;
-import nl.student.services.dto.ItemDTO;
+import nl.student.services.domain.dto.ItemDTO;
 
 import javax.ejb.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 import javax.ws.rs.core.Response;
 
 @Path("/items")

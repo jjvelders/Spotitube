@@ -1,5 +1,7 @@
 package nl.student.application.service;
 
+import nl.student.services.domain.dto.TracksDTO;
+
 public interface ITracks {
-    void getAllTracks();
+    public TracksDTO getAllTracks();
 }

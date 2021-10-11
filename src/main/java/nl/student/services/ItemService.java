@@ -1,6 +1,6 @@
 package nl.student.services;
 
-import nl.student.services.dto.ItemDTO;
+import nl.student.services.domain.dto.ItemDTO;
 import nl.student.services.exceptions.IdAlreadyInUseException;
 import nl.student.services.exceptions.ItemNotAvailableException;
 
