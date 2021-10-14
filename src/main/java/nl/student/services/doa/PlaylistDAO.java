@@ -40,4 +40,29 @@ public class PlaylistDAO implements IPlaylistDAO {
 
         return playlists;
     }
+
+    @Override
+    public boolean deleteById(int id) {
+        DatabaseGetter DbGet = new DatabaseGetter();
+        connection = DbGet.getCon();
+
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.playlist");
+            while(rs.next()){
+                playlists.add(new PlaylistEntity(
+                        rs.getInt("playlistId"),
+                        rs.getString("name"),
+                        rs.getInt("ownerId")
+                ));
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IPlaylist {
     public PlaylistListDTO getAllPlaylists();
+    public boolean deleteTrack(int id);
 }

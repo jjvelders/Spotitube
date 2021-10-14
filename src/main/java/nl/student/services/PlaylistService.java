@@ -14,7 +14,6 @@ public class PlaylistService implements IPlaylist{
     @Inject
     private IPlaylistDAO DAO;
 
-
     @Override
     public PlaylistListDTO getAllPlaylists() {
         ArrayList<PlaylistEntity> DbList = new ArrayList<>(DAO.getAll());
@@ -34,5 +33,10 @@ public class PlaylistService implements IPlaylist{
         }
 
         return new PlaylistListDTO(playlists, 0);
+    }
+
+    @Override
+    public boolean deleteTrack(int id) {
+        return DAO.deleteTrack(id);
     }
 }

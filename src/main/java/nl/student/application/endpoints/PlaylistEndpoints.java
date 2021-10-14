@@ -28,4 +28,14 @@ public class PlaylistEndpoints {
             return  Response.status(401).build();
         }
     }
+
+    @DELETE
+    public Response deleteAPlaylist(@QueryParam("token")UUID token,int id){
+        if (login.ValidToken(token)){
+            return Response.ok().entity(playlist.deleteTrack(id)).build();
+        }
+        else{
+            return  Response.status(401).build();
+        }
+    }
 }
