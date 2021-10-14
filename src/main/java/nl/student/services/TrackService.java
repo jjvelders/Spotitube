@@ -2,13 +2,12 @@ package nl.student.services;
 
 import nl.student.application.service.ITracks;
 import nl.student.data.dao.ITrackDAO;
-import nl.student.services.doa.Entity.TrackEnitity;
+import nl.student.services.doa.Entity.TrackEntity;
 import nl.student.services.domain.dto.TrackDTO;
 import nl.student.services.domain.dto.TracksDTO;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TrackService implements ITracks {
 
@@ -19,10 +18,10 @@ public class TrackService implements ITracks {
     public TracksDTO getAllTracks() {
         TracksDTO dto = new TracksDTO();
 
-        ArrayList<TrackEnitity> trackEnitityList = DAO.getAllTracks();
+        ArrayList<TrackEntity> trackEntityList = DAO.getAllTracks();
         ArrayList<TrackDTO> TrackDTOList = new ArrayList<>();
 
-        for (TrackEnitity track: trackEnitityList) {
+        for (TrackEntity track: trackEntityList) {
             TrackDTOList.add(
                     new TrackDTO(
                             track.getId(),

@@ -44,8 +44,6 @@ public class DatabaseGetter {
         catch (Exception e) {
             throw e;
         }
-
-
     }
 
     enum ConnectionType{

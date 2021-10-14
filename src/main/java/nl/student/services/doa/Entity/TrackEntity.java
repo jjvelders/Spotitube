@@ -2,7 +2,7 @@ package nl.student.services.doa.Entity;
 
 import java.util.Date;
 
-public class TrackEnitity {
+public class TrackEntity {
     private int id;
     private final String title;
     private String performer;
@@ -13,7 +13,7 @@ public class TrackEnitity {
     private String description = null;
     private boolean offlineAvailable;
 
-    public TrackEnitity(int id, String title, String performer, int duration, String album, int playcount, Date publicationDate, String description, boolean offlineAvailable) {
+    public TrackEntity(int id, String title, String performer, int duration, String album, int playcount, Date publicationDate, String description, boolean offlineAvailable) {
         this.id = id;
         this.title = title;
         this.performer = performer;
