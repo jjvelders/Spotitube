@@ -7,4 +7,5 @@ import java.util.UUID;
 public interface IUserDAO {
     public UserEntity getUserByUsername(String Username);
     public void setNewToken(String Username, UUID token);
+    public boolean checkIfValidToken(UUID token);
 }

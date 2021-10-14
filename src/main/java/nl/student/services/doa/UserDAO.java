@@ -73,4 +73,42 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean checkIfValidToken(UUID token) {
+
+        String stmtToken = String.format("select token from [user] where token = '%1$s'",token);
+        UUID NewToken = null;
+
+        DatabaseGetter DbGet = new DatabaseGetter();
+        connection = DbGet.getCon();
+        Statement stmt = null;
+
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(stmtToken);
+            while (rs.next()){
+                NewToken = UUID.fromString(rs.getString(1));
+            }
+
+            if (NewToken != null){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            //without close endpoint doesn't work
+            try {
+                stmt.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

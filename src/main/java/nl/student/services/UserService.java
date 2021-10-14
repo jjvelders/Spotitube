@@ -15,6 +15,11 @@ public class UserService implements ILogin {
     private IUserDAO DAO;
 
     @Override
+    public boolean ValidToken(UUID token) {
+        return DAO.checkIfValidToken(token);
+    }
+
+    @Override
     public UserDTO Login(UserDTO dto) {
 
         UserEntity user = DAO.getUserByUsername(dto.getUser());
