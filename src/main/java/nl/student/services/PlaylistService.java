@@ -37,6 +37,6 @@ public class PlaylistService implements IPlaylist{
 
     @Override
     public boolean deleteTrack(int id) {
-        return DAO.deleteTrack(id);
+        return DAO.deleteById(id);
     }
 }
