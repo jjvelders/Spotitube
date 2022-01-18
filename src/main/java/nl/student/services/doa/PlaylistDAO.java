@@ -1,16 +1,13 @@
 package nl.student.services.doa;
 
 import nl.student.data.dao.IPlaylistDAO;
-import nl.student.services.doa.Entity.PlaylistEntity;
-import nl.student.services.doa.Entity.TrackEntity;
+import nl.student.services.doa.entity.PlaylistEntity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PlaylistDAO implements IPlaylistDAO {
 
@@ -20,8 +17,8 @@ public class PlaylistDAO implements IPlaylistDAO {
     public ArrayList<PlaylistEntity> getAll() {
         ArrayList<PlaylistEntity> playlists = new ArrayList<>();
 
-        DatabaseGetter DbGet = new DatabaseGetter();
-        connection = DbGet.getCon();
+        DatabaseGetter dbGet = new DatabaseGetter();
+        connection = dbGet.getCon();
 
         Statement stmt = null;
         try {
@@ -47,8 +44,8 @@ public class PlaylistDAO implements IPlaylistDAO {
     public boolean deleteById(int id) {
         String stmtToken = String.format("delete from [playlist] where playlistId = '%1$s'", id);
 
-        DatabaseGetter DbGet = new DatabaseGetter();
-        connection = DbGet.getCon();
+        DatabaseGetter databaseGetter = new DatabaseGetter();
+        connection = databaseGetter.getCon();
 
         Statement stmt = null;
         try {

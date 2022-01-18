@@ -15,7 +15,7 @@ public class DatabaseGetter {
 
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection(this.getConnectionString(ConnectionType.LocalConnectionstring));
+            conn = DriverManager.getConnection(this.getConnectionString(ConnectionType.LOCALCONNECTIONSTRING));
             if (conn != null) {
                 System.out.println("Connection Established");
                 return conn;
@@ -41,14 +41,14 @@ public class DatabaseGetter {
 
             return prop.getProperty(String.valueOf(connectionType));
         }
-        catch (Exception e) {
-            throw e;
+        catch (IOException e) {
+            throw new IOException(e);
         }
     }
 
     enum ConnectionType{
-        LocalConnectionstring,
-        RemoteConnectionstring
+        LOCALCONNECTIONSTRING,
+        REMOTECONNECTIONSTRING
     }
 
 }

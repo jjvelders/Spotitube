@@ -19,8 +19,8 @@ public class LoginEndpoints {
     private ILogin login;
 
     @POST
-    public Response Login(UserDTO dto){
-        dto = login.Login(dto);
+    public Response login(UserDTO dto){
+        dto = login.login(dto);
         if(dto != null){
             return Response.ok().entity(dto).build();
         }

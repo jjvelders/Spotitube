@@ -21,7 +21,7 @@ public class PlaylistEndpoints {
 
     @GET
     public Response getAllPlaylists(@QueryParam("token")UUID token){
-        if (login.ValidToken(token)){
+        if (login.validToken(token)){
             return Response.ok().entity(playlist.getAllPlaylists()).build();
         }
         else{
@@ -31,7 +31,7 @@ public class PlaylistEndpoints {
 
     @DELETE
     public Response deleteAPlaylist(@QueryParam("token")UUID token,int id){
-        if (login.ValidToken(token)){
+        if (login.validToken(token)){
             return Response.ok().entity(playlist.deleteTrack(id)).build();
         }
         else{

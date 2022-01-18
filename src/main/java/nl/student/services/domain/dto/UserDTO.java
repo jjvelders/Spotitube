@@ -1,7 +1,5 @@
 package nl.student.services.domain.dto;
 
-import java.util.UUID;
-
 public class UserDTO {
     private String user;
     private String password;

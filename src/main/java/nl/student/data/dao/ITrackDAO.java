@@ -1,9 +1,9 @@
 package nl.student.data.dao;
 
-import nl.student.services.doa.Entity.TrackEntity;
+import nl.student.services.doa.entity.TrackEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ITrackDAO {
-    public ArrayList<TrackEntity> getAllTracks();
+    List<TrackEntity> getAllTracks();
 }

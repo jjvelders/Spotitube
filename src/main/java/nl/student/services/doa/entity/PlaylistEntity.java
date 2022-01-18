@@ -1,6 +1,4 @@
-package nl.student.services.doa.Entity;
-
-import java.util.ArrayList;
+package nl.student.services.doa.entity;
 
 public class PlaylistEntity {
     private int id;

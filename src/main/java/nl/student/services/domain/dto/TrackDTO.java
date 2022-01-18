@@ -3,15 +3,15 @@ package nl.student.services.domain.dto;
 import java.util.Date;
 
 public class TrackDTO {
-    private int id;
-    private String title;
-    private String performer;
-    private int duration;
-    private String album;
-    private int playcount;
+    private final int id;
+    private final String title;
+    private final String performer;
+    private final int duration;
+    private final String album;
+    private final int playcount;
     private Date publicationDate = null;
     private String description = null;
-    private boolean offlineAvailable;
+    private final boolean offlineAvailable;
 
     public TrackDTO(int id, String title, String performer, int duration, String album, int playcount, Date publicationDate, String description, boolean offlineAvailable) {
         this.id = id;

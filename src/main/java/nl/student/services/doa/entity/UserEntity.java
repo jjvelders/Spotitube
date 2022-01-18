@@ -1,9 +1,9 @@
-package nl.student.services.doa.Entity;
+package nl.student.services.doa.entity;
 
 import java.util.Date;
 
 public class UserEntity {
-    private int OwnerId;
+    private int ownerId;
     private String username;
     private String password;
     private String firstName;
@@ -15,7 +15,7 @@ public class UserEntity {
     }
 
     public UserEntity(int ownerId, String username, String password, String firstName, String lastName, String token, Date tokenCreatedTime) {
-        OwnerId = ownerId;
+        this.ownerId = ownerId;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -25,7 +25,7 @@ public class UserEntity {
     }
 
     public int getOwnerId() {
-        return OwnerId;
+        return ownerId;
     }
 
     public String getUsername() {

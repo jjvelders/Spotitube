@@ -1,11 +1,11 @@
 package nl.student.data.dao;
 
-import nl.student.services.doa.Entity.UserEntity;
+import nl.student.services.doa.entity.UserEntity;
 
 import java.util.UUID;
 
 public interface IUserDAO {
-    public UserEntity getUserByUsername(String Username);
-    public void setNewToken(String Username, UUID token);
-    public boolean checkIfValidToken(UUID token);
+    UserEntity getUserByUsername(String username);
+    void setNewToken(String username, UUID token);
+    boolean checkIfValidToken(UUID token);
 }

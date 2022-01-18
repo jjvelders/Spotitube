@@ -1,10 +1,10 @@
 package nl.student.data.dao;
 
-import nl.student.services.doa.Entity.PlaylistEntity;
+import nl.student.services.doa.entity.PlaylistEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IPlaylistDAO {
-    public ArrayList<PlaylistEntity> getAll();
-    public boolean deleteById(int id);
+    List<PlaylistEntity> getAll();
+    boolean deleteById(int id);
 }

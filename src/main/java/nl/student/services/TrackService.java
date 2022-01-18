@@ -2,27 +2,28 @@ package nl.student.services;
 
 import nl.student.application.service.ITracks;
 import nl.student.data.dao.ITrackDAO;
-import nl.student.services.doa.Entity.TrackEntity;
+import nl.student.services.doa.entity.TrackEntity;
 import nl.student.services.domain.dto.TrackDTO;
 import nl.student.services.domain.dto.TracksDTO;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TrackService implements ITracks {
 
     @Inject
-    private ITrackDAO DAO;
+    private ITrackDAO trackDAO;
 
     @Override
     public TracksDTO getAllTracks() {
         TracksDTO dto = new TracksDTO();
 
-        ArrayList<TrackEntity> trackEntityList = DAO.getAllTracks();
-        ArrayList<TrackDTO> TrackDTOList = new ArrayList<>();
+        List<TrackEntity> trackEntityList = trackDAO.getAllTracks();
+        List<TrackDTO> trackDTOList = new ArrayList<>();
 
         for (TrackEntity track: trackEntityList) {
-            TrackDTOList.add(
+            trackDTOList.add(
                     new TrackDTO(
                             track.getId(),
                             track.getTitle(),
@@ -37,7 +38,7 @@ public class TrackService implements ITracks {
             );
         }
 
-        dto.setTracks(TrackDTOList);
+        dto.setTracks(trackDTOList);
 
         return dto;
     }

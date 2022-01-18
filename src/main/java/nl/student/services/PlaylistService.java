@@ -2,25 +2,26 @@ package nl.student.services;
 
 import nl.student.application.service.IPlaylist;
 import nl.student.data.dao.IPlaylistDAO;
-import nl.student.services.doa.Entity.PlaylistEntity;
+import nl.student.services.doa.entity.PlaylistEntity;
 import nl.student.services.domain.dto.PlaylistDTO;
 import nl.student.services.domain.dto.PlaylistListDTO;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistService implements IPlaylist{
 
     @Inject
-    private IPlaylistDAO DAO;
+    private IPlaylistDAO playlistDAO;
 
     @Override
     public PlaylistListDTO getAllPlaylists() {
-        ArrayList<PlaylistEntity> DbList = new ArrayList<>(DAO.getAll());
+        List<PlaylistEntity> playlistEntities = new ArrayList<>(playlistDAO.getAll());
 
-        ArrayList<PlaylistDTO> playlists = new ArrayList<>();
+        List<PlaylistDTO> playlists = new ArrayList<>();
 
-        for (PlaylistEntity entity: DbList) {
+        for (PlaylistEntity entity: playlistEntities) {
             boolean ownerBool = true;
             if (entity.getOwnerId() == 0){
                 ownerBool = false;
@@ -37,6 +38,6 @@ public class PlaylistService implements IPlaylist{
 
     @Override
     public boolean deleteTrack(int id) {
-        return DAO.deleteById(id);
+        return playlistDAO.deleteById(id);
     }
 }

@@ -1,17 +1,17 @@
 package nl.student.services.domain.dto;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistListDTO {
-    private ArrayList<PlaylistDTO> playlists;
-    private int length;
+    private final List<PlaylistDTO> playlists;
+    private final int length;
 
-    public PlaylistListDTO(ArrayList<PlaylistDTO> playlists, int length) {
+    public PlaylistListDTO(List<PlaylistDTO> playlists, int length) {
         this.playlists = playlists;
         this.length = length;
     }
 
-    public ArrayList<PlaylistDTO> getPlaylists() {
+    public List<PlaylistDTO> getPlaylists() {
         return playlists;
     }
 

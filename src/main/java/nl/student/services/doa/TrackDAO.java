@@ -1,7 +1,7 @@
 package nl.student.services.doa;
 
 import nl.student.data.dao.ITrackDAO;
-import nl.student.services.doa.Entity.TrackEntity;
+import nl.student.services.doa.entity.TrackEntity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,8 +17,8 @@ public class TrackDAO implements ITrackDAO {
     public ArrayList<TrackEntity> getAllTracks() {
         ArrayList<TrackEntity> tracks = new ArrayList<>();
 
-        DatabaseGetter DbGet = new DatabaseGetter();
-        connection = DbGet.getCon();
+        DatabaseGetter databaseGetter = new DatabaseGetter();
+        connection = databaseGetter.getCon();
 
         Statement stmt = null;
         try {

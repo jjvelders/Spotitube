@@ -2,7 +2,7 @@ package nl.student.services;
 
 import nl.student.application.service.ILogin;
 import nl.student.data.dao.IUserDAO;
-import nl.student.services.doa.Entity.UserEntity;
+import nl.student.services.doa.entity.UserEntity;
 import nl.student.services.domain.dto.UserDTO;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -12,24 +12,24 @@ import java.util.UUID;
 public class UserService implements ILogin {
 
     @Inject
-    private IUserDAO DAO;
+    private IUserDAO userDAO;
 
     @Override
-    public boolean ValidToken(UUID token) {
-        return DAO.checkIfValidToken(token);
+    public boolean validToken(UUID token) {
+        return userDAO.checkIfValidToken(token);
     }
 
     @Override
-    public UserDTO Login(UserDTO dto) {
+    public UserDTO login(UserDTO dto) {
 
-        UserEntity user = DAO.getUserByUsername(dto.getUser());
+        UserEntity user = userDAO.getUserByUsername(dto.getUser());
 
         if (DigestUtils.sha256Hex(dto.getPassword()).equals(user.getPassword()))
         {
             //right user
             //get token + creation date
             UUID token = UUID.randomUUID();
-            DAO.setNewToken(dto.getUser(), token);
+            userDAO.setNewToken(dto.getUser(), token);
 
             return new UserDTO(token.toString(), user.getFirstName() + " " + user.getLastName());
         }
