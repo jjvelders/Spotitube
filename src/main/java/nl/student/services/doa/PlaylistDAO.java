@@ -2,7 +2,6 @@ package nl.student.services.doa;
 
 import nl.student.data.dao.IPlaylistDAO;
 import nl.student.services.doa.entity.PlaylistEntity;
-import nl.student.services.domain.dto.PlaylistListDTO;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,9 +21,7 @@ public class PlaylistDAO implements IPlaylistDAO {
         DatabaseGetter dbGet = new DatabaseGetter();
         connection = dbGet.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.playlist");
             while(rs.next()){
                 playlists.add(new PlaylistEntity(
@@ -49,13 +46,8 @@ public class PlaylistDAO implements IPlaylistDAO {
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(stmtToken);
-
-            //without close endpoint doesn't work
-            stmt.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,13 +64,8 @@ public class PlaylistDAO implements IPlaylistDAO {
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(stmtToken);
-
-            //without close endpoint doesn't work
-            stmt.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,9 +79,7 @@ public class PlaylistDAO implements IPlaylistDAO {
         DatabaseGetter dbGet = new DatabaseGetter();
         connection = dbGet.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(MessageFormat.format("SELECT * FROM dbo.playlist p where p.playlistId =  {0}", id));
             while(rs.next()){
                 playlist = new PlaylistEntity(
@@ -108,7 +93,6 @@ public class PlaylistDAO implements IPlaylistDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return playlist;
     }
 }

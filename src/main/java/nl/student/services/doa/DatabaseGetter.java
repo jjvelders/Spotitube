@@ -14,13 +14,8 @@ public class DatabaseGetter {
         Connection conn = null;
 
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(this.getConnectionString(ConnectionType.REMOTECONNECTIONSTRING));
-            if (conn != null) {
-                System.out.println("Connection Established");
-                return conn;
-            }
-        } catch (SQLException | IOException | ClassNotFoundException ex) {
+        } catch (SQLException | IOException ex) {
             ex.printStackTrace();
         }
         return conn;

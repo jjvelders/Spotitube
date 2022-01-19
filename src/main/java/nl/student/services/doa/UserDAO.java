@@ -21,9 +21,7 @@ public class UserDAO implements IUserDAO {
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM [user] where username = '" + username + "'");
             while(rs.next()){
                 user = new UserEntity(
@@ -61,13 +59,8 @@ public class UserDAO implements IUserDAO {
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(stmtToken);
-
-            //without close endpoint doesn't work
-            stmt.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,16 +75,11 @@ public class UserDAO implements IUserDAO {
 
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
-        Statement stmt = null;
-
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(stmtToken);
             while (rs.next()){
                 newToken = UUID.fromString(rs.getString(1));
             }
-
-            stmt.close();
             connection.close();
             return newToken != null;
         } catch (SQLException e) {

@@ -21,9 +21,7 @@ public class TrackDAO implements ITrackDAO {
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.track");
             while(rs.next()){
                 tracks.add(new TrackEntity(
@@ -54,9 +52,7 @@ public class TrackDAO implements ITrackDAO {
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("select * from track t where t.trackId = (select trackId from playlistTrack pt where pt.playlistId =" + playlistId + " )" );
             while(rs.next()){
                 tracks.add(new TrackEntity(
