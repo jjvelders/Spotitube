@@ -2,6 +2,7 @@ package nl.student.services.doa;
 
 import nl.student.data.dao.IPlaylistDAO;
 import nl.student.services.doa.entity.PlaylistEntity;
+import nl.student.services.domain.dto.PlaylistDTO;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,7 +42,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public boolean deleteById(int id) {
-        String stmtToken = String.format("delete from [playlist] where playlistId = '%1$s'", id);
+        java.lang.String stmtToken = MessageFormat.format("delete from [playlist] where playlistId = {0}", id);
 
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
@@ -58,8 +59,23 @@ public class PlaylistDAO implements IPlaylistDAO {
     }
 
     @Override
-    public void editPlaylist(int playlistId, String playlistName) {
-        String stmtToken = MessageFormat.format("update [playlist] set name = ''{1}'' where playlistId = {0}", playlistId, playlistName);
+    public void addPlaylist(String playlistName, int userId) {
+        java.lang.String stmtToken = MessageFormat.format("insert into playlist (name, ownerId) values (''{0}'', {1})", playlistName, userId);
+
+        DatabaseGetter databaseGetter = new DatabaseGetter();
+        connection = databaseGetter.getCon();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(stmtToken);
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void editPlaylist(int playlistId, java.lang.String playlistName) {
+        java.lang.String stmtToken = MessageFormat.format("update [playlist] set name = ''{1}'' where playlistId = {0}", playlistId, playlistName);
 
         DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();

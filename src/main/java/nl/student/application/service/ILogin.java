@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface ILogin {
     boolean validToken(UUID token);
     UserDTO login(UserDTO dto);
+
+    int getIdFromToken(UUID token);
 }

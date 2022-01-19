@@ -39,13 +39,8 @@ public class PlaylistService implements IPlaylist{
     public PlaylistListDTO editPlaylist(int playlistId,PlaylistDTO playlistDTO) {
         PlaylistEntity playlistEntity = getById(playlistId);
 
-        if (playlistEntity.getId() == playlistId || playlistDTO != null) {
-            if (playlistEntity.getName() != playlistDTO.getName()){
-                playlistDAO.editPlaylist(playlistId, playlistDTO.getName());
-            }
-        }
-        else {
-            System.out.println("No such playlist found!");
+        if (playlistEntity.getId() == playlistId && playlistEntity.getName() != playlistDTO.getName()){
+            playlistDAO.editPlaylist(playlistId, playlistDTO.getName());
         }
         return getAllPlaylists();
     }
@@ -53,6 +48,14 @@ public class PlaylistService implements IPlaylist{
     @Override
     public boolean deleteTrack(int id) {
         return playlistDAO.deleteById(id);
+    }
+
+    @Override
+    public PlaylistsDTO addPlaylist(PlaylistDTO playlistDTO, UUID token) {
+        UserService userService = new UserService();
+        int userId = userService.getIdFromToken(token);
+        playlistDAO.addPlaylist(playlistDTO.getName(), userId);
+        return getAllPlaylists();
     }
 
     private PlaylistEntity getById(int id){

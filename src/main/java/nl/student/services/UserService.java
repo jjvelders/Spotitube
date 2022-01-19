@@ -38,4 +38,9 @@ public class UserService implements ILogin {
             return null;
         }
     }
+
+    @Override
+    public int getIdFromToken(UUID token) {
+        return 0;
+    }
 }

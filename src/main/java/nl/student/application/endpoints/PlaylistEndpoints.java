@@ -31,6 +31,18 @@ public class PlaylistEndpoints {
         }
     }
 
+    @POST
+    @Path("/playlists")
+    @Consumes("application/json")
+    public Response postNewPlaylist(@QueryParam("token")UUID token, PlaylistDTO playlistDTO){
+        if (login.validToken(token)){
+            return Response.ok().entity(playlist.addPlaylist(playlistDTO, token)).build();
+        }
+        else{
+            return Response.status(401).build();
+        }
+    }
+
     @PUT
     @Path("/playlists/{id}")
     @Consumes("application/json")
