@@ -3,26 +3,58 @@ package nl.student.services.doa;
 import nl.student.data.dao.IUserDAO;
 import nl.student.services.doa.entity.UserEntity;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 public class UserDAO implements IUserDAO {
 
+    @Inject
+    private DatabaseGetter databaseGetter;
+
     Connection connection = null;
 
     @Override
     public UserEntity getUserByUsername(String username) {
         UserEntity user = null;
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM [user] where username = '" + username + "'");
+            while(rs.next()){
+                user = new UserEntity(
+                        rs.getInt("OwnerID"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("firstName"),
+                        rs.getString("lastName"),
+                        rs.getString("token"),
+                        rs.getDate("tokenCreateTime")
+                );
+            }
+            //without close endpoint doesn't work
+            rs.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    @Override
+    public UserEntity getUserByToken(UUID token) {
+        UserEntity user = null;
+        connection = databaseGetter.getCon();
+
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(MessageFormat.format("SELECT * FROM [user] u where u.token = ''{0}''", token));
             while(rs.next()){
                 user = new UserEntity(
                         rs.getInt("OwnerID"),
@@ -56,7 +88,6 @@ public class UserDAO implements IUserDAO {
                 username
         );
 
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
@@ -69,11 +100,8 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public boolean checkIfValidToken(UUID token) {
-
         String stmtToken = String.format("select token from [user] where token = '%1$s'",token);
         UUID newToken = null;
-
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(stmtToken);

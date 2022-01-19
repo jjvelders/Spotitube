@@ -9,11 +9,15 @@ import nl.student.services.domain.dto.PlaylistListDTO;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PlaylistService implements IPlaylist{
 
     @Inject
     private IPlaylistDAO playlistDAO;
+
+    @Inject
+    private UserService userService;
 
     @Override
     public PlaylistListDTO getAllPlaylists() {
@@ -46,13 +50,13 @@ public class PlaylistService implements IPlaylist{
     }
 
     @Override
-    public boolean deleteTrack(int id) {
-        return playlistDAO.deleteById(id);
+    public PlaylistListDTO deleteTrack(int id) {
+        playlistDAO.deleteById(id);
+        return getAllPlaylists();
     }
 
     @Override
-    public PlaylistsDTO addPlaylist(PlaylistDTO playlistDTO, UUID token) {
-        UserService userService = new UserService();
+    public PlaylistListDTO addPlaylist(PlaylistDTO playlistDTO, UUID token) {
         int userId = userService.getIdFromToken(token);
         playlistDAO.addPlaylist(playlistDTO.getName(), userId);
         return getAllPlaylists();

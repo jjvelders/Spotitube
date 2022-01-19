@@ -9,4 +9,5 @@ public interface IPlaylistDAO {
     boolean deleteById(int id);
     void editPlaylist(int playlistId, String playlistName);
     PlaylistEntity getById(int id);
+    void addPlaylist(String name, int userId);
 }

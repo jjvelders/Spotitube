@@ -3,6 +3,7 @@ package nl.student.services.doa;
 import nl.student.data.dao.ITrackDAO;
 import nl.student.services.doa.entity.TrackEntity;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,13 +13,14 @@ import java.util.List;
 
 public class TrackDAO implements ITrackDAO {
 
+    @Inject
+    private DatabaseGetter databaseGetter;
+
     Connection connection = null;
 
     @Override
     public ArrayList<TrackEntity> getAllTracks() {
         ArrayList<TrackEntity> tracks = new ArrayList<>();
-
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
@@ -48,8 +50,6 @@ public class TrackDAO implements ITrackDAO {
     @Override
     public List<TrackEntity> getTracksByPlaylistId(int playlistId) {
         ArrayList<TrackEntity> tracks = new ArrayList<>();
-
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {

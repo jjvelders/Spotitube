@@ -8,4 +8,6 @@ public interface IUserDAO {
     UserEntity getUserByUsername(String username);
     void setNewToken(String username, UUID token);
     boolean checkIfValidToken(UUID token);
+
+    UserEntity getUserByToken(UUID token);
 }

@@ -2,8 +2,8 @@ package nl.student.services.doa;
 
 import nl.student.data.dao.IPlaylistDAO;
 import nl.student.services.doa.entity.PlaylistEntity;
-import nl.student.services.domain.dto.PlaylistDTO;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,14 +13,15 @@ import java.util.ArrayList;
 
 public class PlaylistDAO implements IPlaylistDAO {
 
+    @Inject
+    private DatabaseGetter databaseGetter;
+
     Connection connection = null;
 
     @Override
     public ArrayList<PlaylistEntity> getAll() {
         ArrayList<PlaylistEntity> playlists = new ArrayList<>();
-
-        DatabaseGetter dbGet = new DatabaseGetter();
-        connection = dbGet.getCon();
+        connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.playlist");
@@ -43,8 +44,6 @@ public class PlaylistDAO implements IPlaylistDAO {
     @Override
     public boolean deleteById(int id) {
         java.lang.String stmtToken = MessageFormat.format("delete from [playlist] where playlistId = {0}", id);
-
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
@@ -61,8 +60,6 @@ public class PlaylistDAO implements IPlaylistDAO {
     @Override
     public void addPlaylist(String playlistName, int userId) {
         java.lang.String stmtToken = MessageFormat.format("insert into playlist (name, ownerId) values (''{0}'', {1})", playlistName, userId);
-
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
@@ -76,8 +73,6 @@ public class PlaylistDAO implements IPlaylistDAO {
     @Override
     public void editPlaylist(int playlistId, java.lang.String playlistName) {
         java.lang.String stmtToken = MessageFormat.format("update [playlist] set name = ''{1}'' where playlistId = {0}", playlistId, playlistName);
-
-        DatabaseGetter databaseGetter = new DatabaseGetter();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {

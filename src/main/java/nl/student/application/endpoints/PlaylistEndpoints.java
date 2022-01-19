@@ -56,8 +56,8 @@ public class PlaylistEndpoints {
     }
 
     @DELETE
-    @Path("/playlists")
-    public Response deleteAPlaylist(@QueryParam("token")UUID token,int id){
+    @Path("/playlists/{id}")
+    public Response deleteAPlaylist(@PathParam("id") int id, @QueryParam("token")UUID token){
         if (login.validToken(token)){
             return Response.ok().entity(playlist.deleteTrack(id)).build();
         }

@@ -41,6 +41,7 @@ public class UserService implements ILogin {
 
     @Override
     public int getIdFromToken(UUID token) {
-        return 0;
+        UserEntity user = userDAO.getUserByToken(token);
+        return user.getOwnerId();
     }
 }
