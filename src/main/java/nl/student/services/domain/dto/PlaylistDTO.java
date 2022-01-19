@@ -41,4 +41,20 @@ public class PlaylistDTO {
     public List<TrackDTO> getTracks() {
         return tracks;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOwner(boolean owner) {
+        this.owner = owner;
+    }
+
+    public void setTracks(List<TrackDTO> tracks) {
+        this.tracks = tracks;
+    }
 }

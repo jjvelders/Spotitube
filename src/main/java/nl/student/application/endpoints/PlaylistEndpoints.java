@@ -6,7 +6,6 @@ import nl.student.services.domain.dto.PlaylistDTO;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
@@ -33,10 +32,11 @@ public class PlaylistEndpoints {
     }
 
     @PUT
-    @Path("/playlists")
-    public Response putEditPlaylist(PlaylistDTO playlistDTO, @QueryParam("token")UUID token){
+    @Path("/playlists/{id}")
+    @Consumes("application/json")
+    public Response putEditPlaylist(@PathParam("id") int playlistId, @QueryParam("token")UUID token, PlaylistDTO playlistDTO){
         if (login.validToken(token)){
-            return Response.ok().entity(playlist.getAllPlaylists()).build();
+            return Response.ok().entity(playlist.editPlaylist(playlistId, playlistDTO)).build();
         }
         else{
             return Response.status(401).build();

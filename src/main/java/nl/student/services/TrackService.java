@@ -18,10 +18,9 @@ public class TrackService implements ITracks {
     @Override
     public TracksDTO getAllTracks() {
         TracksDTO dto = new TracksDTO();
-
-        List<TrackEntity> trackEntityList = trackDAO.getAllTracks();
         List<TrackDTO> trackDTOList = new ArrayList<>();
 
+        List<TrackEntity> trackEntityList = trackDAO.getAllTracks();
         for (TrackEntity track: trackEntityList) {
             trackDTOList.add(
                     new TrackDTO(
@@ -37,19 +36,16 @@ public class TrackService implements ITracks {
                     )
             );
         }
-
         dto.setTracks(trackDTOList);
-
         return dto;
     }
 
     @Override
     public TracksDTO getTracksByPlaylistId(int playlistId) {
         TracksDTO dto = new TracksDTO();
-
-        List<TrackEntity> trackEntityList = trackDAO.getTracksByPlaylistId(playlistId);
         List<TrackDTO> trackDTOList = new ArrayList<>();
 
+        List<TrackEntity> trackEntityList = trackDAO.getTracksByPlaylistId(playlistId);
         for (TrackEntity track: trackEntityList) {
             trackDTOList.add(
                     new TrackDTO(
@@ -65,9 +61,7 @@ public class TrackService implements ITracks {
                     )
             );
         }
-
         dto.setTracks(trackDTOList);
-
         return dto;
     }
 }

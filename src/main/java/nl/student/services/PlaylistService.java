@@ -17,9 +17,8 @@ public class PlaylistService implements IPlaylist{
 
     @Override
     public PlaylistListDTO getAllPlaylists() {
-        List<PlaylistEntity> playlistEntities = new ArrayList<>(playlistDAO.getAll());
-
         List<PlaylistDTO> playlists = new ArrayList<>();
+        List<PlaylistEntity> playlistEntities = new ArrayList<>(playlistDAO.getAll());
 
         for (PlaylistEntity entity: playlistEntities) {
             boolean ownerBool = true;
@@ -37,12 +36,27 @@ public class PlaylistService implements IPlaylist{
     }
 
     @Override
-    public PlaylistListDTO editPlaylist() {
-        return null;
+    public PlaylistListDTO editPlaylist(int playlistId,PlaylistDTO playlistDTO) {
+        PlaylistEntity playlistEntity = getById(playlistId);
+
+        if (playlistEntity.getId() == playlistId || playlistDTO != null) {
+            if (playlistEntity.getName() != playlistDTO.getName()){
+                playlistDAO.editPlaylist(playlistId, playlistDTO.getName());
+            }
+        }
+        else {
+            System.out.println("No such playlist found!");
+        }
+        return getAllPlaylists();
     }
 
     @Override
     public boolean deleteTrack(int id) {
         return playlistDAO.deleteById(id);
     }
+
+    private PlaylistEntity getById(int id){
+        return playlistDAO.getById(id);
+    }
+
 }
