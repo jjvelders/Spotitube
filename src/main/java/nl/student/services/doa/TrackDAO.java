@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +20,12 @@ public class TrackDAO implements ITrackDAO {
     Connection connection = null;
 
     @Override
-    public ArrayList<TrackEntity> getAllTracks() {
+    public ArrayList<TrackEntity> getAvailableTracksByPlaylistId(int playlistId) {
         ArrayList<TrackEntity> tracks = new ArrayList<>();
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.track");
+            ResultSet rs = stmt.executeQuery("select * from track t where t.trackId in (select trackId from playlistTrack pt where pt.playlistId !=" + playlistId + " )" );
             while(rs.next()){
                 tracks.add(new TrackEntity(
                         rs.getInt("trackId"),
@@ -53,7 +54,7 @@ public class TrackDAO implements ITrackDAO {
         connection = databaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("select * from track t where t.trackId = (select trackId from playlistTrack pt where pt.playlistId =" + playlistId + " )" );
+            ResultSet rs = stmt.executeQuery("select * from track t where t.trackId in (select trackId from playlistTrack pt where pt.playlistId =" + playlistId + " )" );
             while(rs.next()){
                 tracks.add(new TrackEntity(
                         rs.getInt("trackId"),
@@ -74,5 +75,29 @@ public class TrackDAO implements ITrackDAO {
         }
 
         return tracks;
+    }
+
+    @Override
+    public void addTrackToPlaylist(int trackId, int playlistId) {
+        connection = databaseGetter.getCon();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(MessageFormat.format("INSERT INTO playlistTrack (trackId, playlistId) VALUES({0}, {1})", trackId, playlistId));
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteTrackFromPlaylist(int trackId, int playlistId) {
+        connection = databaseGetter.getCon();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(MessageFormat.format("DELETE FROM playlistTrack WHERE trackId = {0} AND playlistId = {1}", trackId, playlistId));
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

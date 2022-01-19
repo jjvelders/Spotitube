@@ -3,15 +3,18 @@ package nl.student.services.domain.dto;
 import java.util.Date;
 
 public class TrackDTO {
-    private final int id;
-    private final String title;
-    private final String performer;
-    private final int duration;
-    private final String album;
-    private final int playcount;
+    private int id;
+    private String title;
+    private String performer;
+    private int duration;
+    private String album;
+    private int playcount;
     private Date publicationDate = null;
     private String description = null;
-    private final boolean offlineAvailable;
+    private boolean offlineAvailable;
+
+    public TrackDTO() {
+    }
 
     public TrackDTO(int id, String title, String performer, int duration, String album, int playcount, Date publicationDate, String description, boolean offlineAvailable) {
         this.id = id;
@@ -22,6 +25,34 @@ public class TrackDTO {
         this.playcount = playcount;
         this.publicationDate = publicationDate;
         this.description = description;
+        this.offlineAvailable = offlineAvailable;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPerformer(String performer) {
+        this.performer = performer;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public void setPlaycount(int playcount) {
+        this.playcount = playcount;
+    }
+
+    public void setOfflineAvailable(boolean offlineAvailable) {
         this.offlineAvailable = offlineAvailable;
     }
 
@@ -53,11 +84,19 @@ public class TrackDTO {
         return publicationDate;
     }
 
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public boolean getOfflineAvailable() {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isOfflineAvailable() {
         return offlineAvailable;
     }
 }

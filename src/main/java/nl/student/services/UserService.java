@@ -1,6 +1,6 @@
 package nl.student.services;
 
-import nl.student.application.service.ILogin;
+import nl.student.application.service.ILoginService;
 import nl.student.data.dao.IUserDAO;
 import nl.student.services.doa.entity.UserEntity;
 import nl.student.services.domain.dto.UserDTO;
@@ -9,7 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import javax.inject.Inject;
 import java.util.UUID;
 
-public class UserService implements ILogin {
+public class UserService implements ILoginService {
 
     @Inject
     private IUserDAO userDAO;

@@ -1,6 +1,6 @@
 package nl.student.application.endpoints;
 
-import nl.student.application.service.ILogin;
+import nl.student.application.service.ILoginService;
 import nl.student.services.domain.dto.UserDTO;
 
 import javax.inject.Inject;
@@ -16,13 +16,13 @@ import javax.ws.rs.core.Response;
 public class LoginEndpoints {
 
     @Inject
-    private ILogin login;
+    private ILoginService loginService;
 
     @POST
-    public Response login(UserDTO dto){
-        dto = login.login(dto);
-        if(dto != null){
-            return Response.ok().entity(dto).build();
+    public Response login(UserDTO userDTO){
+        userDTO = loginService.login(userDTO);
+        if(userDTO != null){
+            return Response.ok().entity(userDTO).build();
         }
         else
         {

@@ -1,7 +1,7 @@
 package nl.student.application.endpoints;
 
-import nl.student.application.service.ILogin;
-import nl.student.application.service.IPlaylist;
+import nl.student.application.service.ILoginService;
+import nl.student.application.service.IPlaylistService;
 import nl.student.services.domain.dto.PlaylistDTO;
 
 import javax.inject.Inject;
@@ -15,15 +15,15 @@ import java.util.UUID;
 public class PlaylistEndpoints {
 
     @Inject
-    private IPlaylist playlist;
+    private IPlaylistService playlist;
 
     @Inject
-    private ILogin login;
+    private ILoginService loginService;
 
     @GET
     @Path("/playlists")
     public Response getAllPlaylists(@QueryParam("token")UUID token){
-        if (login.validToken(token)){
+        if (loginService.validToken(token)){
             return Response.ok().entity(playlist.getAllPlaylists()).build();
         }
         else{
@@ -35,7 +35,7 @@ public class PlaylistEndpoints {
     @Path("/playlists")
     @Consumes("application/json")
     public Response postNewPlaylist(@QueryParam("token")UUID token, PlaylistDTO playlistDTO){
-        if (login.validToken(token)){
+        if (loginService.validToken(token)){
             return Response.ok().entity(playlist.addPlaylist(playlistDTO, token)).build();
         }
         else{
@@ -47,7 +47,7 @@ public class PlaylistEndpoints {
     @Path("/playlists/{id}")
     @Consumes("application/json")
     public Response putEditPlaylist(@PathParam("id") int playlistId, @QueryParam("token")UUID token, PlaylistDTO playlistDTO){
-        if (login.validToken(token)){
+        if (loginService.validToken(token)){
             return Response.ok().entity(playlist.editPlaylist(playlistId, playlistDTO)).build();
         }
         else{
@@ -57,9 +57,9 @@ public class PlaylistEndpoints {
 
     @DELETE
     @Path("/playlists/{id}")
-    public Response deleteAPlaylist(@PathParam("id") int id, @QueryParam("token")UUID token){
-        if (login.validToken(token)){
-            return Response.ok().entity(playlist.deleteTrack(id)).build();
+    public Response deleteAPlaylist(@PathParam("id") int playlistId, @QueryParam("token")UUID token){
+        if (loginService.validToken(token)){
+            return Response.ok().entity(playlist.deleteTrack(playlistId)).build();
         }
         else{
             return  Response.status(401).build();

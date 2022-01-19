@@ -1,6 +1,6 @@
 package nl.student.services;
 
-import nl.student.application.service.IPlaylist;
+import nl.student.application.service.IPlaylistService;
 import nl.student.data.dao.IPlaylistDAO;
 import nl.student.services.doa.entity.PlaylistEntity;
 import nl.student.services.domain.dto.PlaylistDTO;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PlaylistService implements IPlaylist{
+public class PlaylistServiceService implements IPlaylistService {
 
     @Inject
     private IPlaylistDAO playlistDAO;
