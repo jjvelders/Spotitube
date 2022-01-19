@@ -91,18 +91,11 @@ public class UserDAO implements IUserDAO {
                 newToken = UUID.fromString(rs.getString(1));
             }
 
+            stmt.close();
+            connection.close();
             return newToken != null;
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
-            //without close endpoint doesn't work
-            try {
-                stmt.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }

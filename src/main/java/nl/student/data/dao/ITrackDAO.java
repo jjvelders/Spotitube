@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ITrackDAO {
     List<TrackEntity> getAllTracks();
+
+    List<TrackEntity> getTracksByPlaylistId(int playlistId);
 }

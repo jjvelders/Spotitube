@@ -37,6 +37,11 @@ public class PlaylistService implements IPlaylist{
     }
 
     @Override
+    public PlaylistListDTO editPlaylist() {
+        return null;
+    }
+
+    @Override
     public boolean deleteTrack(int id) {
         return playlistDAO.deleteById(id);
     }

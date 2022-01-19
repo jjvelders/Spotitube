@@ -2,13 +2,15 @@ package nl.student.application.endpoints;
 
 import nl.student.application.service.ILogin;
 import nl.student.application.service.IPlaylist;
+import nl.student.services.domain.dto.PlaylistDTO;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-@Path("/playlists")
+@Path("/")
 @Consumes("application/json")
 @Produces("application/json")
 public class PlaylistEndpoints {
@@ -20,6 +22,7 @@ public class PlaylistEndpoints {
     private ILogin login;
 
     @GET
+    @Path("/playlists")
     public Response getAllPlaylists(@QueryParam("token")UUID token){
         if (login.validToken(token)){
             return Response.ok().entity(playlist.getAllPlaylists()).build();
@@ -29,7 +32,19 @@ public class PlaylistEndpoints {
         }
     }
 
+    @PUT
+    @Path("/playlists")
+    public Response putEditPlaylist(PlaylistDTO playlistDTO, @QueryParam("token")UUID token){
+        if (login.validToken(token)){
+            return Response.ok().entity(playlist.getAllPlaylists()).build();
+        }
+        else{
+            return Response.status(401).build();
+        }
+    }
+
     @DELETE
+    @Path("/playlists")
     public Response deleteAPlaylist(@QueryParam("token")UUID token,int id){
         if (login.validToken(token)){
             return Response.ok().entity(playlist.deleteTrack(id)).build();

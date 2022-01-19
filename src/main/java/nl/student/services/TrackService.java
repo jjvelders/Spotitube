@@ -42,4 +42,32 @@ public class TrackService implements ITracks {
 
         return dto;
     }
+
+    @Override
+    public TracksDTO getTracksByPlaylistId(int playlistId) {
+        TracksDTO dto = new TracksDTO();
+
+        List<TrackEntity> trackEntityList = trackDAO.getTracksByPlaylistId(playlistId);
+        List<TrackDTO> trackDTOList = new ArrayList<>();
+
+        for (TrackEntity track: trackEntityList) {
+            trackDTOList.add(
+                    new TrackDTO(
+                            track.getId(),
+                            track.getTitle(),
+                            track.getPerformer(),
+                            track.getDuration(),
+                            track.getAlbum(),
+                            track.getPlaycount(),
+                            track.getPublicationDate(),
+                            track.getDescription(),
+                            track.getIsOfflineAvailable()
+                    )
+            );
+        }
+
+        dto.setTracks(trackDTOList);
+
+        return dto;
+    }
 }
