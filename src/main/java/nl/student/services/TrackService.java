@@ -32,7 +32,7 @@ public class TrackService implements ITracksService {
                             track.getPlaycount(),
                             track.getPublicationDate(),
                             track.getDescription(),
-                            track.getIsOfflineAvailable()
+                            track.isOfflineAvailable()
                     )
             );
         }
@@ -57,7 +57,7 @@ public class TrackService implements ITracksService {
                             track.getPlaycount(),
                             track.getPublicationDate(),
                             track.getDescription(),
-                            track.getIsOfflineAvailable()
+                            track.isOfflineAvailable()
                     )
             );
         }
@@ -66,8 +66,9 @@ public class TrackService implements ITracksService {
     }
 
     @Override
-    public TracksDTO addTrackToPlaylist(int trackId, int playlistId) {
-        trackDAO.addTrackToPlaylist(trackId, playlistId);
+    public TracksDTO addTrackToPlaylist(TrackDTO trackDTO, int playlistId) {
+        trackDAO.addTrackToPlaylist(trackDTO.getId(), playlistId);
+        editTrack(trackDTO);
         return getTracksByPlaylistId(playlistId);
     }
 
@@ -75,5 +76,17 @@ public class TrackService implements ITracksService {
     public TracksDTO deleteTrackFromPlaylist(int playlistId, int trackId) {
         trackDAO.deleteTrackFromPlaylist(trackId, playlistId);
         return getTracksByPlaylistId(playlistId);
+    }
+
+    private void editTrack(TrackDTO trackDTO){
+        TrackEntity trackEntity = getById(trackDTO.getId());
+        if(trackEntity.isOfflineAvailable() != trackDTO.isOfflineAvailable()){
+            int bit = trackDTO.isOfflineAvailable() ? 1 : 0;
+            trackDAO.editTrackAvailability(trackDTO.getId(), bit);
+        }
+    }
+
+    private TrackEntity getById(int trackId){
+        return trackDAO.getById(trackId);
     }
 }

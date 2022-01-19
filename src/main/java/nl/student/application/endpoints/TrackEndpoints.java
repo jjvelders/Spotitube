@@ -47,7 +47,7 @@ public class TrackEndpoints {
     @Consumes("application/json")
     public Response postAddTrackToPlaylist(@PathParam("id") int playlistId, @QueryParam("token") UUID token, TrackDTO trackDTO){
         if (loginService.validToken(token)){
-            return Response.ok().entity(tracksService.addTrackToPlaylist(trackDTO.getId(), playlistId)).build();
+            return Response.ok().entity(tracksService.addTrackToPlaylist(trackDTO, playlistId)).build();
         }
         else{
             return Response.status(401).build();

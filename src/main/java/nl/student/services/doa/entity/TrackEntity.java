@@ -57,7 +57,7 @@ public class TrackEntity {
         return description;
     }
 
-    public boolean getIsOfflineAvailable() {
+    public boolean isOfflineAvailable() {
         return offlineAvailable;
     }
 }

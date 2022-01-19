@@ -7,6 +7,9 @@ import java.util.List;
 public interface ITrackDAO {
     List<TrackEntity> getAvailableTracksByPlaylistId(int playlistId);
     List<TrackEntity> getTracksByPlaylistId(int playlistId);
+    TrackEntity getById(int trackId);
     void addTrackToPlaylist(int trackId, int playlistId);
     void deleteTrackFromPlaylist(int trackId, int playlistId);
+    void editTrackAvailability(int id, int offlineAvailable);
+
 }
