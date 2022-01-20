@@ -12,7 +12,8 @@ import java.util.List;
 
 public class TrackService implements ITracksService {
 
-    private final ITrackDAO trackDAO;
+    @Inject
+    private ITrackDAO trackDAO;
 
     @Inject
     public TrackService(ITrackDAO trackDAO) {

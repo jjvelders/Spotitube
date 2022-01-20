@@ -10,16 +10,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-
 
 class TrackServiceTest {
 
     //variables or services
     private TrackService sut;
     private ITrackDAO mockedTrackDAO;
-
 
     @BeforeEach
     void setUp(){
@@ -29,7 +28,7 @@ class TrackServiceTest {
     }
 
     @Test
-    void getTracksByPlaylistIdSuccess(){
+    void getAvailableTracksByPlaylistId(){
         //GIVEN
         TracksDTO tracksDTO;
         List<TrackEntity> trackEntityList = new ArrayList<>();
@@ -48,10 +47,10 @@ class TrackServiceTest {
         ));
 
         //WHEN
-        Mockito.when(mockedTrackDAO.getTracksByPlaylistId(playlistId)).thenReturn(trackEntityList);
+        Mockito.when(mockedTrackDAO.getAvailableTracksByPlaylistId(playlistId)).thenReturn(trackEntityList);
 
         //THEN
-        tracksDTO = sut.getTracksByPlaylistId(playlistId);
+        tracksDTO = sut.getAvailableTracksByPlaylistId(playlistId);
         List<TrackDTO> list = tracksDTO.getTracks();
         Assertions.assertEquals(1, list.size());
     }
