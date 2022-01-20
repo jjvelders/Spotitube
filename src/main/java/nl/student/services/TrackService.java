@@ -12,8 +12,12 @@ import java.util.List;
 
 public class TrackService implements ITracksService {
 
+    private final ITrackDAO trackDAO;
+
     @Inject
-    private ITrackDAO trackDAO;
+    public TrackService(ITrackDAO trackDAO) {
+        this.trackDAO = trackDAO;
+    }
 
     @Override
     public TracksDTO getAvailableTracksByPlaylistId(int playlistId) {

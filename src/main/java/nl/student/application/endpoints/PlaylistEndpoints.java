@@ -27,7 +27,7 @@ public class PlaylistEndpoints {
             return Response.ok().entity(playlist.getAllPlaylists()).build();
         }
         else{
-            return  Response.status(401).build();
+            return Response.status(401).build();
         }
     }
 
@@ -62,7 +62,7 @@ public class PlaylistEndpoints {
             return Response.ok().entity(playlist.deleteTrack(playlistId)).build();
         }
         else{
-            return  Response.status(401).build();
+            return Response.status(401).build();
         }
     }
 }

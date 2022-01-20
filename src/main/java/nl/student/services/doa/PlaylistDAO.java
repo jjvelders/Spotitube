@@ -42,7 +42,7 @@ public class PlaylistDAO implements IPlaylistDAO {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public void deleteById(int id) {
         java.lang.String stmtToken = MessageFormat.format("delete from [playlist] where playlistId = {0}", id);
         connection = databaseGetter.getCon();
 
@@ -51,10 +51,7 @@ public class PlaylistDAO implements IPlaylistDAO {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-
-        return true;
     }
 
     @Override
