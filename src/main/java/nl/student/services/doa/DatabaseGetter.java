@@ -10,19 +10,26 @@ import java.util.Properties;
 
 public class DatabaseGetter {
 
-    public Connection getCon(){
-        Connection conn = null;
+    static Connection connection;
 
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conn = DriverManager.getConnection(this.getConnectionString(ConnectionType.REMOTECONNECTIONSTRING));
-        } catch (SQLException | IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        return conn;
+    public static synchronized Connection getCon(){
+            try {
+                if (connection == null || connection.isClosed()) {
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                    connection = DriverManager.getConnection(getConnectionString(ConnectionType.REMOTECONNECTIONSTRING));
+                    System.out.println("New Connection established");
+                }
+            } catch (SQLException | IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        return connection;
     }
 
-    private String getConnectionString(ConnectionType connectionType) throws IOException {
+    public static void giveBack(Connection conn){
+        connection = conn;
+    }
+
+    private static String getConnectionString(ConnectionType connectionType) throws IOException {
         try {
             Properties prop = new Properties();
             String propFileName = "database.properties";

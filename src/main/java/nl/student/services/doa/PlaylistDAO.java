@@ -3,7 +3,6 @@ package nl.student.services.doa;
 import nl.student.data.dao.IPlaylistDAO;
 import nl.student.services.doa.entity.PlaylistEntity;
 
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,15 +12,12 @@ import java.util.ArrayList;
 
 public class PlaylistDAO implements IPlaylistDAO {
 
-    @Inject
-    private DatabaseGetter databaseGetter;
-
     Connection connection = null;
 
     @Override
     public ArrayList<PlaylistEntity> getAll() {
         ArrayList<PlaylistEntity> playlists = new ArrayList<>();
-        connection = databaseGetter.getCon();
+        connection = DatabaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.playlist");
@@ -33,7 +29,7 @@ public class PlaylistDAO implements IPlaylistDAO {
                 ));
             }
             rs.close();
-            connection.close();
+            DatabaseGetter.giveBack(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,12 +39,12 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public void deleteById(int id) {
-        java.lang.String stmtToken = MessageFormat.format("delete from [playlist] where playlistId = {0}", id);
-        connection = databaseGetter.getCon();
+        String stmtToken = MessageFormat.format("delete from [playlist] where playlistId = {0}", id);
+        connection = DatabaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(stmtToken);
-            connection.close();
+            DatabaseGetter.giveBack(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,11 +53,11 @@ public class PlaylistDAO implements IPlaylistDAO {
     @Override
     public void addPlaylist(String playlistName, int userId) {
         java.lang.String stmtToken = MessageFormat.format("insert into playlist (name, ownerId) values (''{0}'', {1})", playlistName, userId);
-        connection = databaseGetter.getCon();
+        connection = DatabaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(stmtToken);
-            connection.close();
+            DatabaseGetter.giveBack(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,11 +66,11 @@ public class PlaylistDAO implements IPlaylistDAO {
     @Override
     public void editPlaylist(int playlistId, java.lang.String playlistName) {
         java.lang.String stmtToken = MessageFormat.format("update [playlist] set name = ''{1}'' where playlistId = {0}", playlistId, playlistName);
-        connection = databaseGetter.getCon();
+        connection = DatabaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(stmtToken);
-            connection.close();
+            DatabaseGetter.giveBack(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,9 +79,7 @@ public class PlaylistDAO implements IPlaylistDAO {
     @Override
     public PlaylistEntity getById(int id) {
         PlaylistEntity playlist = null;
-
-        DatabaseGetter dbGet = new DatabaseGetter();
-        connection = dbGet.getCon();
+        connection = DatabaseGetter.getCon();
 
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(MessageFormat.format("SELECT * FROM dbo.playlist p where p.playlistId =  {0}", id));
@@ -97,7 +91,7 @@ public class PlaylistDAO implements IPlaylistDAO {
                 );
             }
             rs.close();
-            connection.close();
+            DatabaseGetter.giveBack(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
