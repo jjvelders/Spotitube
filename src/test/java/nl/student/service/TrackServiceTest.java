@@ -5,16 +5,16 @@ import nl.student.services.TrackService;
 import nl.student.services.doa.entity.TrackEntity;
 import nl.student.services.domain.dto.TrackDTO;
 import nl.student.services.domain.dto.TracksDTO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-class TrackServiceTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TrackServiceTest {
 
     //variables or services
     private TrackService sut;
@@ -29,14 +29,14 @@ class TrackServiceTest {
 
     @Test
     void getAvailableTracksByPlaylistId(){
-        //GIVEN
+        //ARRANGE
         TracksDTO tracksDTO;
         List<TrackEntity> trackEntityList = new ArrayList<>();
         int playlistId = 2;
 
         trackEntityList.add(new TrackEntity(
                 1,
-                "",
+                "title",
                 "",
                 0,
                 "",
@@ -46,12 +46,14 @@ class TrackServiceTest {
                 true
         ));
 
-        //WHEN
+        //ACT
         Mockito.when(mockedTrackDAO.getAvailableTracksByPlaylistId(playlistId)).thenReturn(trackEntityList);
 
-        //THEN
+        //ASSERT
         tracksDTO = sut.getAvailableTracksByPlaylistId(playlistId);
         List<TrackDTO> list = tracksDTO.getTracks();
-        Assertions.assertEquals(1, list.size());
+        assertEquals(1, list.size());
+        assertEquals(1, list.get(0).getId());
+        assertEquals("title", list.get(0).getTitle());
     }
 }

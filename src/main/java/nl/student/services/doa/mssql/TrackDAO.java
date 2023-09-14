@@ -1,9 +1,8 @@
-package nl.student.services.doa;
+package nl.student.services.doa.mssql;
 
 import nl.student.data.dao.ITrackDAO;
 import nl.student.services.doa.entity.TrackEntity;
 
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

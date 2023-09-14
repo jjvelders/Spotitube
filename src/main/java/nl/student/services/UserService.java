@@ -24,7 +24,9 @@ public class UserService implements ILoginService {
 
         UserEntity user = userDAO.getUserByUsername(dto.getUser());
 
-        if (DigestUtils.sha256Hex(dto.getPassword()).equals(user.getPassword()))
+
+        //if (DigestUtils.sha256Hex(dto.getPassword()).equals(user.getPassword()))
+        if (dto.getPassword().equals(user.getPassword()))
         {
             //right user
             //get token + creation date

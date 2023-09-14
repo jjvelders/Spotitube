@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PlaylistServiceService implements IPlaylistService {
+public class PlaylistService implements IPlaylistService {
 
     @Inject
     private IPlaylistDAO playlistDAO;

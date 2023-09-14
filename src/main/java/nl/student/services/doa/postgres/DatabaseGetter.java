@@ -1,4 +1,4 @@
-package nl.student.services.doa;
+package nl.student.services.doa.postgres;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,8 +15,8 @@ public class DatabaseGetter {
     public static synchronized Connection getCon(){
             try {
                 if (connection == null || connection.isClosed()) {
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                    connection = DriverManager.getConnection(getConnectionString(ConnectionType.REMOTECONNECTIONSTRING));
+                    Class.forName("org.postgresql.Driver");
+                    connection = DriverManager.getConnection(getConnectionString(ConnectionType.POSTGRESCONNECTIONSTRING));
                     System.out.println("New Connection established");
                 }
             } catch (SQLException | IOException | ClassNotFoundException ex) {
@@ -51,7 +51,8 @@ public class DatabaseGetter {
 
     enum ConnectionType{
         LOCALCONNECTIONSTRING,
-        REMOTECONNECTIONSTRING
+        REMOTECONNECTIONSTRING,
+        POSTGRESCONNECTIONSTRING
     }
 
 }

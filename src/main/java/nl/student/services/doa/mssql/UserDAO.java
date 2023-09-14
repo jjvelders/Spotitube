@@ -1,9 +1,9 @@
-package nl.student.services.doa;
+package nl.student.services.doa.mssql;
 
 import nl.student.data.dao.IUserDAO;
 import nl.student.services.doa.entity.UserEntity;
 
-import javax.inject.Inject;
+import javax.enterprise.inject.Default;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +32,7 @@ public class UserDAO implements IUserDAO {
                         rs.getString("firstName"),
                         rs.getString("lastName"),
                         rs.getString("token"),
-                        rs.getDate("tokenCreateTime")
+                        rs.getDate("tokenCreatedTime")
                 );
             }
             rs.close();
@@ -59,7 +59,7 @@ public class UserDAO implements IUserDAO {
                         rs.getString("firstName"),
                         rs.getString("lastName"),
                         rs.getString("token"),
-                        rs.getDate("tokenCreateTime")
+                        rs.getDate("tokenCreatedTime")
                 );
             }
             rs.close();
@@ -77,7 +77,7 @@ public class UserDAO implements IUserDAO {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = formatter.format(date);
 
-        String stmtToken = String.format("update [user] set token = '%1$s' , tokenCreateTime = '%2$s' where username = '%3$s'",
+        String stmtToken = String.format("update [user] set token = '%1$s' , tokenCreatedTime = '%2$s' where username = '%3$s'",
                 token,
                 strDate,
                 username

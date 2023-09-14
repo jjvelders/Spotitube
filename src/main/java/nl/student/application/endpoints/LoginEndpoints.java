@@ -22,7 +22,7 @@ public class LoginEndpoints {
     public Response login(UserDTO userDTO){
         userDTO = loginService.login(userDTO);
         if(userDTO != null){
-            return Response.ok().entity(userDTO).build();
+            return Response.status(201).entity(userDTO).build();
         }
         else
         {
