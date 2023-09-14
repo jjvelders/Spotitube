@@ -19,15 +19,4 @@ public class DatabaseCleaner {
         }
     }
 
-    public static void cleanPostgresDb(){
-        Connection connection = DatabaseGetter.getCon();
-
-        try (Statement stmt = connection.createStatement()){
-            stmt.execute("SPcleanDb");
-            DatabaseGetter.giveBack(connection);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
 }

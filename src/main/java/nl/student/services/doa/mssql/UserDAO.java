@@ -3,7 +3,6 @@ package nl.student.services.doa.mssql;
 import nl.student.data.dao.IUserDAO;
 import nl.student.services.doa.entity.UserEntity;
 
-import javax.enterprise.inject.Default;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
